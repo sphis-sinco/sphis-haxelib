@@ -31,7 +31,7 @@ class DefineManager {
 	/**
 	 * Returns if a define is added to `DEFINES`
 	 */
-	public static function name(define:String):Bool {
+	public static function enabledDefine(define:String):Bool {
 		return DEFINES.contains(define);
 	}
 }
