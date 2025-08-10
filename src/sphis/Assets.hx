@@ -1,64 +1,126 @@
 import haxe.Json;
 
 class Assets {
+	/**
+	 * The common extension for image files
+	 */
 	public static var IMAGE_EXT:String = 'png';
+	/**
+	 * The common extension for video files
+	 */
 	public static var VIDEO_EXT:String = 'mp4';
+	/**
+	 * The common extension for wav files
+	 */
 	public static var SOUND_EXT:String = 'wav';
 
+	/**
+	 * The common extension for hscript script files
+	 */
 	public static var HSCRIPT_EXT:String = 'hxc';
 
 	// file paths
 
-	public static function getPath(id:String) {
-		#if flixelModding
-		@:privateAccess {
-			FlxG.log.notice('getPath($id)');
-			return FlxModding.system.redirect(id);
-		}
-		#else
-		return id;
-		#end
+	/**
+	 * Return a path to a file.
+         * 
+         * If you have the `flixel-modding` library installed,
+         * You can add a define: `flixel-modding` to `sphis.defines.DefineManager`
+         * and it will automatically attempt to redirect the path to a
+         * path in a mod using `FlxModding.system.redirect`
+         * 
+	 * @param id The path to the file
+	 * @return String The returning path (probably parsed into a valid path)
+	 */
+	public static function getPath(id:String):String {
+		if (sphis.defines.DefineManager.DEFINES.contains('flixel-modding'))
+                        @:privateAccess {
+                                FlxG.log.notice('getPath($id)');
+                                return FlxModding.system.redirect(id);
+                        }
+                else
+                        return id;
 	}
 
-	public static function getAssetPath(id:String)
+	/**
+	 * Returns a path in the `assets` folder
+	 */
+	public static function getAssetPath(id:String):String
 		return getPath('assets/$id');
 
-	public static function getDataPath(id:String)
+	/**
+	 * Returns a path in the `assets/data` folder
+	 */
+	public static function getDataPath(id:String):String
 		return getAssetPath('data/$id');
 
-	public static function getImagePath(id:String)
+	/**
+	 * Returns a path in the `assets/images` folder
+	 */
+	public static function getImagePath(id:String):String
 		return getAssetPath('images/$id.$IMAGE_EXT');
 
-	public static function getVideoPath(id:String)
+	/**
+	 * Returns a path in the `assets/videos` folder
+	 */
+	public static function getVideoPath(id:String):String
 		return getAssetPath('videos/$id.$VIDEO_EXT');
 
-	public static function getMusicPath(id:String)
+	/**
+	 * Returns a path in the `assets/music` folder
+	 */
+	public static function getMusicPath(id:String):String
 		return getAssetPath('music/$id.$SOUND_EXT');
 
-	public static function getSoundPath(id:String)
+	/**
+	 * Returns a path in the `assets/sounds` folder
+	 */
+	public static function getSoundPath(id:String):String
 		return getAssetPath('sounds/$id.$SOUND_EXT');
 
 	// file content
 
-	public static function getFileTextContent(id:String, ?dataFolder:Bool = true) {
+	/**
+	 * Returns the text content of a file with text content
+         * 
+	 * @param id file path
+	 * @param dataFolder this controls if you wana look inisde `assets` or  `assets/data`
+	 */
+	public static function getFileTextContent(id:String, ?dataFolder:Bool = true):String {
 		var path = getAssetPath('$id');
 		if (dataFolder)
 			path = getDataPath('$id');
 
-		#if flixelModding
-		return FlxModding.system.getText(path);
-		#else
-		// lime or openfl
-		return lime.utils.Assets.getText(path);
-		#end
+		if (sphis.defines.DefineManager.DEFINES.contains('flixel-modding'))
+                        return FlxModding.system.getText(path);
+                else
+                        return lime.utils.Assets.getText(path);
 	}
 
-	public static function getTextFile(id:String, ?dataFolder:Bool = true)
+	/**
+	 * Returns the text content of a `.txt` file
+         * 
+	 * @param id text file path
+	 * @param dataFolder this controls if you wana look inisde `assets` or  `assets/data`
+	 */
+	public static function getTextFile(id:String, ?dataFolder:Bool = true):String
 		return getFileTextContent('$id.txt', dataFolder);
 
-	public static function getFileJsonContent(id:String, ?dataFolder:Bool = true)
+	/**
+	 * Returns the json of a file with json content
+         * 
+	 * @param id file path
+	 * @param dataFolder this controls if you wana look inisde `assets` or  `assets/data`
+	 */
+	public static function getFileJsonContent(id:String, ?dataFolder:Bool = true):Dynamic
 		return Json.parse(getFileTextContent(id, dataFolder));
 
-	public static function getJsonFile(id:String, ?dataFolder:Bool = true)
+	/**
+	 * Returns the json content of a json file
+         * 
+	 * @param id json file path
+	 * @param dataFolder this controls if you wana look inisde `assets` or  `assets/data`
+	 */
+	public static function getJsonFile(id:String, ?dataFolder:Bool = true):Dynamic
 		return getFileJsonContent('$id.json', dataFolder);
 }
