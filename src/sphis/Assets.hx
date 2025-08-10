@@ -37,7 +37,7 @@ class Assets {
 	public static function getPath(id:String):String {
 		#if flixelModding
                 @:privateAccess {
-                        FlxG.log.notice('getPath($id)');
+			flixel.FlxG.log.notice('getPath($id)');
                         return flixel.system.FlxModding.system.redirect(id);
                 }
                 #else
@@ -97,7 +97,7 @@ class Assets {
 			path = getImagePath(id);
 
 		#if flixelModding
-		return FlxModding.system.getBitmapData(path);
+		return flixel.system.FlxModding.system.getBitmapData(path);
 		#else
                 return lime.utils.Assets.getImage(path);
 		#end

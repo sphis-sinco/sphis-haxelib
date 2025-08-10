@@ -9,8 +9,10 @@
         "releasenote": "New dependency: hscript-iris",
         "contributors": ["Sphis"],
         "dependencies": {
+                "hscript": "",
                 "hscript-iris": "",
                 "flixel": "",
+                "flixel-modding": "",
                 "lime": "",
                 "openfl": ""
         }

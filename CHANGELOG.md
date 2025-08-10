@@ -1,4 +1,7 @@
 # v.1.1 (8/10/2025)
+- Fixed compiling errors in `Assets.hx` related to imports
+- New dependency: `flixel-modding`
+  - New dependency: `hscript`
 - Added `sphis.modding.ScriptsManager` - this helps with modding via `hscript-iris`
   - `hscriptIris` define will enable this
 - New dependency: `hscript-iris`
