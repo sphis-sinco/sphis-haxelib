@@ -1,6 +1,6 @@
-package src.sphis.grid;
+package sphis.grid;
 
-class GridManager {
+class GridGlobal {
 	public static var GRID_WIDTH:Int = 8;
 	public static var GRID_HEIGHT:Int = 8;
 
@@ -11,7 +11,7 @@ class GridManager {
         {
                 setGridSize(packSize, packSize);
         }
-        
+
 	/**
 	 * This will set both `GRID_WIDTH` and `GRID_HEIGHT` through 2 arguments
 	 */
