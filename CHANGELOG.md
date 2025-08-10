@@ -1,4 +1,6 @@
 # v.1.1 (8/10/2025)
+- Added `sphis.grid.CalculateGridPosition` - this assists in calculation of grid positions
+- Added `sphis.grid.GridGlobal` - this manages anything and all relating to files in `sphis.grid.`
 - Added `sphis.Version` - this is a more dynamic SemVer basically
 - Fixed errors when `flixel.system.FlxModding` hasn't been initalized / isn't enabled
 - Fixed `sphis.Assets` error: `lime.graphics.Image should be openfl.display.BitmapData`
