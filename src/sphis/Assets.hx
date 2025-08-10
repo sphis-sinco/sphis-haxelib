@@ -37,10 +37,11 @@ class Assets {
 	 * @return String The returning path (probably parsed into a valid path)
 	 */
 	public static function getPath(id:String):String {
-		if (sphis.defines.DefineManager.enabledDefine('flixelModding'))
+		if (sphis.defines.DefineManager.enabledDefine('flixelModding')) {
 			@:privateAccess {
-			flixel.FlxG.log.notice('getPath($id)');
-			return flixel.system.FlxModding.system.redirect(id);
+				flixel.FlxG.log.notice('getPath($id)');
+				return flixel.system.FlxModding.system.redirect(id);
+			}
 		} else
 			return id;
 	}
