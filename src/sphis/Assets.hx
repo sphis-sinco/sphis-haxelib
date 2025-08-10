@@ -1,3 +1,5 @@
+package sphis;
+
 import haxe.Json;
 
 class Assets {
@@ -25,7 +27,7 @@ class Assets {
 	 * Return a path to a file.
          * 
          * If you have the `flixel-modding` library installed,
-         * You can add a define: `flixel-modding` to `sphis.defines.DefineManager`
+         * You can compile with a define: `flixelModding` (project XML or not doesn't matter obviously)
          * and it will automatically attempt to redirect the path to a
          * path in a mod using `FlxModding.system.redirect`
          * 
@@ -33,13 +35,14 @@ class Assets {
 	 * @return String The returning path (probably parsed into a valid path)
 	 */
 	public static function getPath(id:String):String {
-		if (sphis.defines.DefineManager.DEFINES.contains('flixel-modding'))
-                        @:privateAccess {
-                                FlxG.log.notice('getPath($id)');
-                                return FlxModding.system.redirect(id);
-                        }
-                else
-                        return id;
+		#if flixelModding
+                @:privateAccess {
+                        FlxG.log.notice('getPath($id)');
+                        return flixel.system.FlxModding.system.redirect(id);
+                }
+                #else
+                return id;
+                #end
 	}
 
 	/**
@@ -91,10 +94,11 @@ class Assets {
 		if (dataFolder)
 			path = getDataPath('$id');
 
-		if (sphis.defines.DefineManager.DEFINES.contains('flixel-modding'))
-                        return FlxModding.system.getText(path);
-                else
-                        return lime.utils.Assets.getText(path);
+		#if flixelModding
+                return flixel.system.FlxModding.system.getText(path);
+                #else
+                return lime.utils.Assets.getText(path);
+                #end
 	}
 
 	/**
