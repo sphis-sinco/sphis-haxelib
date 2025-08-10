@@ -1,4 +1,5 @@
 # v.1.1 (8/10/2025)
+- Added `sphis.Version` - this is a more dynamic SemVer basically
 - Fixed errors when `flixel.system.FlxModding` hasn't been initalized / isn't enabled
 - Fixed `sphis.Assets` error: `lime.graphics.Image should be openfl.display.BitmapData`
 - Added new function to `sphis.defines.DefineManager`: `enabledDefine` - returns if a define is in `DEFINES`
