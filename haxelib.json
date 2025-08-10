@@ -6,9 +6,10 @@
         "description": "This library is a compilation of scripts used by Sphis",
         "version": "1.0.0",
         "classPath": "src/",
-        "releasenote": "",
+        "releasenote": "New dependency: hscript-iris",
         "contributors": ["Sphis"],
         "dependencies": {
+                "hscript-iris": "",
                 "flixel": "",
                 "lime": "",
                 "openfl": ""
