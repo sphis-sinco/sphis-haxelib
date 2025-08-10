@@ -84,7 +84,28 @@ class Assets {
 	// file content
 
 	/**
+	 * Returns the bitmap data of an image
+	 * (modified by `flixelModding` define)
+	 * 
+	 * @param id image path
+	 * @param imageFolder this controls if you wana look inisde `assets` or  `assets/images`
+	 */
+	public static function getImage(id:String, ?imageFolder:Bool = true)
+	{
+		var path = getAssetPath('$id.$IMAGE_EXT');
+		if (imageFolder)
+			path = getImagePath(id);
+
+		#if flixelModding
+		return FlxModding.system.getBitmapData(path);
+		#else
+                return lime.utils.Assets.getImage(path);
+		#end
+	}
+
+	/**
 	 * Returns the text content of a file with text content
+	 * (modified by `flixelModding` define)
          * 
 	 * @param id file path
 	 * @param dataFolder this controls if you wana look inisde `assets` or  `assets/data`
@@ -103,6 +124,7 @@ class Assets {
 
 	/**
 	 * Returns the text content of a `.txt` file
+	 * (modified by `flixelModding` define)
          * 
 	 * @param id text file path
 	 * @param dataFolder this controls if you wana look inisde `assets` or  `assets/data`
@@ -112,6 +134,7 @@ class Assets {
 
 	/**
 	 * Returns the json of a file with json content
+	 * (modified by `flixelModding` define)
          * 
 	 * @param id file path
 	 * @param dataFolder this controls if you wana look inisde `assets` or  `assets/data`
@@ -121,6 +144,7 @@ class Assets {
 
 	/**
 	 * Returns the json content of a json file
+	 * (modified by `flixelModding` define)
          * 
 	 * @param id json file path
 	 * @param dataFolder this controls if you wana look inisde `assets` or  `assets/data`
