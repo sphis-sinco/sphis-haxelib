@@ -7,10 +7,12 @@ class Assets {
 	 * The common extension for image files
 	 */
 	public static var IMAGE_EXT:String = 'png';
+
 	/**
 	 * The common extension for video files
 	 */
 	public static var VIDEO_EXT:String = 'mp4';
+
 	/**
 	 * The common extension for wav files
 	 */
@@ -25,24 +27,22 @@ class Assets {
 
 	/**
 	 * Return a path to a file.
-         * 
-         * If you have the `flixel-modding` library installed,
-         * You can compile with a define: `flixelModding` (project XML or not doesn't matter obviously)
-         * and it will automatically attempt to redirect the path to a
-         * path in a mod using `FlxModding.system.redirect`
-         * 
+	 		 * 
+	 		 * If you have the `flixel-modding` library installed,
+	 		 * You can compile with a define: `flixelModding` (project XML or not doesn't matter obviously)
+	 		 * and it will automatically attempt to redirect the path to a
+	 		 * path in a mod using `FlxModding.system.redirect`
+	 		 * 
 	 * @param id The path to the file
 	 * @return String The returning path (probably parsed into a valid path)
 	 */
 	public static function getPath(id:String):String {
-		#if flixelModding
-                @:privateAccess {
+		if (sphis.define.DefineManager.enabledDefine('flixelModding'))
+			@:privateAccess {
 			flixel.FlxG.log.notice('getPath($id)');
-                        return flixel.system.FlxModding.system.redirect(id);
-                }
-                #else
-                return id;
-                #end
+			return flixel.system.FlxModding.system.redirect(id);
+		} else
+			return id;
 	}
 
 	/**
@@ -90,23 +90,21 @@ class Assets {
 	 * @param id image path
 	 * @param imageFolder this controls if you wana look inisde `assets` or  `assets/images`
 	 */
-	public static function getImage(id:String, ?imageFolder:Bool = true)
-	{
+	public static function getImage(id:String, ?imageFolder:Bool = true) {
 		var path = getAssetPath('$id.$IMAGE_EXT');
 		if (imageFolder)
 			path = getImagePath(id);
 
-		#if flixelModding
-		return flixel.system.FlxModding.system.getBitmapData(path);
-		#else
-                return lime.utils.Assets.getImage(path);
-		#end
+		if (sphis.define.DefineManager.enabledDefine('flixelModding'))
+			return flixel.system.FlxModding.system.getBitmapData(path);
+		else
+			return lime.utils.Assets.getImage(path);
 	}
 
 	/**
 	 * Returns the text content of a file with text content
 	 * (modified by `flixelModding` define)
-         * 
+	 		 * 
 	 * @param id file path
 	 * @param dataFolder this controls if you wana look inisde `assets` or  `assets/data`
 	 */
@@ -115,17 +113,16 @@ class Assets {
 		if (dataFolder)
 			path = getDataPath('$id');
 
-		#if flixelModding
-                return flixel.system.FlxModding.system.getText(path);
-                #else
-                return lime.utils.Assets.getText(path);
-                #end
+		if (sphis.define.DefineManager.enabledDefine('flixelModding'))
+			return flixel.system.FlxModding.system.getText(path);
+		else
+			return lime.utils.Assets.getText(path);
 	}
 
 	/**
 	 * Returns the text content of a `.txt` file
 	 * (modified by `flixelModding` define)
-         * 
+	 		 * 
 	 * @param id text file path
 	 * @param dataFolder this controls if you wana look inisde `assets` or  `assets/data`
 	 */
@@ -135,7 +132,7 @@ class Assets {
 	/**
 	 * Returns the json of a file with json content
 	 * (modified by `flixelModding` define)
-         * 
+	 		 * 
 	 * @param id file path
 	 * @param dataFolder this controls if you wana look inisde `assets` or  `assets/data`
 	 */
@@ -145,7 +142,7 @@ class Assets {
 	/**
 	 * Returns the json content of a json file
 	 * (modified by `flixelModding` define)
-         * 
+	 		 * 
 	 * @param id json file path
 	 * @param dataFolder this controls if you wana look inisde `assets` or  `assets/data`
 	 */

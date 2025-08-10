@@ -21,23 +21,19 @@ import play.*;
 #if hscript
 import hscript.*;
 #end
-
 #if sys
 import sys.FileSystem;
 import sys.io.File;
 #end
 
 // THANK YOU FNF-Doido-Engine
-class ScriptsManager
-{
+class ScriptsManager {
 	// hscript!!
 	public static var LOADED_SCRIPTS:Array<Iris> = [];
 
-	private static function loadScripts():Void
-	{
+	private static function loadScripts():Void {
 		// NO DUPES
-		for (instance in LOADED_SCRIPTS)
-		{
+		for (instance in LOADED_SCRIPTS) {
 			// fix multiple instances of similar scripts
 			// trace('Bye bye ${instance.name}');
 			instance.destroy();
@@ -48,20 +44,15 @@ class ScriptsManager
 		var scriptPaths:Array<String> = [];
 		var readDirectory = function(dir:String) {}
 
-		readDirectory = function(dir:String)
-		{
+		readDirectory = function(dir:String) {
 			// trace(dir);
 			if (!FileSystem.exists(dir))
 				return;
-			for (file in FileSystem.readDirectory(dir))
-			{
-				if (file.endsWith(sphis.Assets.HSCRIPT_EXT))
-				{
+			for (file in FileSystem.readDirectory(dir)) {
+				if (file.endsWith(sphis.Assets.HSCRIPT_EXT)) {
 					if (!scriptPaths.contains('$dir/$file'))
 						scriptPaths.push('$dir/$file');
-				}
-				else if (!file.contains('.'))
-				{
+				} else if (!file.contains('.')) {
 					readDirectory('$dir/$file');
 				}
 			}
@@ -69,8 +60,7 @@ class ScriptsManager
 		readDirectory(sphis.Assets.getAssetPath('scripts'));
 		readDirectory('assets/scripts');
 
-		for (path in scriptPaths)
-		{
+		for (path in scriptPaths) {
 			var newScript:Iris = new Iris(File.getContent(path), {name: path, autoRun: true, autoPreset: true});
 			if (LOADED_SCRIPTS.contains(newScript))
 				return;
@@ -129,9 +119,9 @@ class ScriptsManager
 		setScript("FlxSort", FlxSort);
 
 		#if (!js || !html5)
-                #if flixelModding
+		#if flixelModding
 		setScript("FlxModding", flixel.system.FlxModding);
-                #end
+		#end
 		#end
 
 		// Tweens
@@ -143,12 +133,10 @@ class ScriptsManager
 
 		// script exclusive stuff
 		setScript('is_debug', sphis.defines.DefinesManager.DEFINES.contains('debug'));
-		setScript('colorFromString', function(string:String)
-		{
+		setScript('colorFromString', function(string:String) {
 			return FlxColor.fromString(string);
 		});
-		setScript('switchState', function(nextState:NextState)
-		{
+		setScript('switchState', function(nextState:NextState) {
 			FlxG.switchState(nextState);
 		});
 
@@ -157,22 +145,16 @@ class ScriptsManager
 		callScript('scriptsLoaded');
 	}
 
-	public static function callScript(fun:String, ?args:Array<Dynamic>, ?endCallBack:Void->Void, ?pos:haxe.PosInfos):Void
-	{
-		for (script in LOADED_SCRIPTS)
-		{
+	public static function callScript(fun:String, ?args:Array<Dynamic>, ?endCallBack:Void->Void, ?pos:haxe.PosInfos):Void {
+		for (script in LOADED_SCRIPTS) {
 			@:privateAccess {
 				var ny:Dynamic = script.interp.variables.get(fun);
-				try
-				{
-					if (ny != null && Reflect.isFunction(ny))
-					{
+				try {
+					if (ny != null && Reflect.isFunction(ny)) {
 						script.call(fun, args);
 						// trace('ran $fun with args $args', pos);
 					}
-				}
-				catch (e)
-				{
+				} catch (e) {
 					trace('error parsing script: ' + e, pos);
 				}
 			}
@@ -182,29 +164,25 @@ class ScriptsManager
 			endCallBack();
 	}
 
-	public static function setScript(name:String, value:Dynamic, allowOverride:Bool = true):Void
-	{
+	public static function setScript(name:String, value:Dynamic, allowOverride:Bool = true):Void {
 		for (script in LOADED_SCRIPTS)
 			script.set(name, value, allowOverride);
 	}
 }
 #else
 class ScriptsManager {
-        public static var LOADED_SCRIPTS:Array<Dynamic> = [];
+	public static var LOADED_SCRIPTS:Array<Dynamic> = [];
 
-	private static function loadScripts():Void
-	{
-                trace('hscriptIris define not defined');
+	private static function loadScripts():Void {
+		trace('hscriptIris define not defined');
 	}
 
-	public static function callScript(fun:String, ?args:Array<Dynamic>, ?endCallBack:Void->Void, ?pos:haxe.PosInfos):Void
-	{
-                trace('hscriptIris define not defined');
+	public static function callScript(fun:String, ?args:Array<Dynamic>, ?endCallBack:Void->Void, ?pos:haxe.PosInfos):Void {
+		trace('hscriptIris define not defined');
 	}
 
-	public static function setScript(name:String, value:Dynamic, allowOverride:Bool = true):Void
-	{
-                trace('hscriptIris define not defined');
+	public static function setScript(name:String, value:Dynamic, allowOverride:Bool = true):Void {
+		trace('hscriptIris define not defined');
 	}
 }
 #end
