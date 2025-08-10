@@ -37,7 +37,7 @@ class Assets {
 	 * @return String The returning path (probably parsed into a valid path)
 	 */
 	public static function getPath(id:String):String {
-		if (sphis.defines.DefineManager.enabledDefine('flixelModding')) {
+		if (sphis.defines.DefineManager.enabledDefine('flixelModding') && flixel.system.FlxModding.enabled) {
 			@:privateAccess {
 				flixel.FlxG.log.notice('getPath($id)');
 				return flixel.system.FlxModding.system.redirect(id);
@@ -96,7 +96,7 @@ class Assets {
 		if (imageFolder)
 			path = getImagePath(id);
 
-		if (sphis.defines.DefineManager.enabledDefine('flixelModding'))
+		if (sphis.defines.DefineManager.enabledDefine('flixelModding') && flixel.system.FlxModding.enabled)
 			return flixel.system.FlxModding.system.getBitmapData(path);
 		else
 			return openfl.Assets.getBitmapData(path);
@@ -114,7 +114,7 @@ class Assets {
 		if (dataFolder)
 			path = getDataPath('$id');
 
-		if (sphis.defines.DefineManager.enabledDefine('flixelModding'))
+		if (sphis.defines.DefineManager.enabledDefine('flixelModding') && flixel.system.FlxModding.enabled)
 			return flixel.system.FlxModding.system.getText(path);
 		else
 			return lime.utils.Assets.getText(path);
