@@ -1,5 +1,6 @@
 package modding;
 
+import sphis.defines.DefineManager;
 #if hscriptIris
 import crowplexus.iris.Iris;
 import flixel.*;
@@ -46,6 +47,7 @@ class ScriptsManager {
 
 		readDirectory = function(dir:String) {
 			// trace(dir);
+			#if sys
 			if (!FileSystem.exists(dir))
 				return;
 			for (file in FileSystem.readDirectory(dir)) {
@@ -56,16 +58,19 @@ class ScriptsManager {
 					readDirectory('$dir/$file');
 				}
 			}
+			#end
 		}
 		readDirectory(sphis.Assets.getAssetPath('scripts'));
 		readDirectory('assets/scripts');
 
 		for (path in scriptPaths) {
+			#if sys
 			var newScript:Iris = new Iris(File.getContent(path), {name: path, autoRun: true, autoPreset: true});
 			if (LOADED_SCRIPTS.contains(newScript))
 				return;
 			// FlxG.log.add('New script: $path');
 			LOADED_SCRIPTS.push(newScript);
+			#end
 		}
 
 		// import stuff
@@ -132,7 +137,7 @@ class ScriptsManager {
 		setScript("FlxFlicker", FlxFlicker);
 
 		// script exclusive stuff
-		setScript('is_debug', sphis.defines.DefinesManager.DEFINES.contains('debug'));
+		setScript('is_debug', DefineManager.DEFINES.contains('debug'));
 		setScript('colorFromString', function(string:String) {
 			return FlxColor.fromString(string);
 		});

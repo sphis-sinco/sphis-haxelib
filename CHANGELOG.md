@@ -1,4 +1,6 @@
 # v.1.2 (8/23/2025)
+- Added missing `#if sys #end`'s in `sphis.modding.ScriptsManager`
+- Fixed typo in `sphis.modding.ScriptsManager`
 - `flixel-modding` v1.4.0 is supported and v1.3.0 support has been removed
 
 # v.1.1 (8/10/2025)

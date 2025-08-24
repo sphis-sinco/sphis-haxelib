@@ -1,11 +1,12 @@
 package sphis;
 
-import haxe.Json;
-
-import sphis.defines.*;
+import flixel.*;
 import flixel.system.FlxModding;
+import haxe.Json;
+import sphis.defines.*;
 
-class Assets {
+class Assets
+{
 	/**
 	 * The common extension for image files
 	 */
@@ -39,13 +40,16 @@ class Assets {
 	 * @param id The path to the file
 	 * @return String The returning path (probably parsed into a valid path)
 	 */
-	public static function getPath(id:String):String {
-		if (DefineManager.enabledDefine('flixelModding') && FlxModding.enabled) {
+	public static function getPath(id:String):String
+	{
+		if (DefineManager.enabledDefine('flixelModding') && FlxModding.enabled)
+		{
 			@:privateAccess {
 				FlxG.log.notice('getPath($id)');
 				return FlxModding.system.redirect(id);
 			}
-		} else
+		}
+		else
 			return id;
 	}
 
@@ -53,7 +57,12 @@ class Assets {
 	 * Returns a path in the `assets` folder
 	 */
 	public static function getAssetPath(id:String):String
-		return getPath('assets/$id');
+		if (DefineManager.enabledDefine('flixelModding') && FlxModding.enabled)
+		{
+			return getPath('$id'); // uh, ok
+		}
+		else
+			return getPath('assets/$id');
 
 	/**
 	 * Returns a path in the `assets/data` folder
@@ -94,13 +103,14 @@ class Assets {
 	 * @param id image path
 	 * @param imageFolder this controls if you wana look inisde `assets` or  `assets/images`
 	 */
-	public static function getImage(id:String, ?imageFolder:Bool = true) {
+	public static function getImage(id:String, ?imageFolder:Bool = true)
+	{
 		var path = getAssetPath('$id.$IMAGE_EXT');
 		if (imageFolder)
 			path = getImagePath(id);
 
 		if (DefineManager.enabledDefine('flixelModding') && FlxModding.enabled)
-			return FlxModding.system.getBitmapData(path);
+			return FlxModding.system.assetSystem.getBitmapData(path);
 		else
 			return openfl.Assets.getBitmapData(path);
 	}
@@ -112,13 +122,14 @@ class Assets {
 	 * @param id file path
 	 * @param dataFolder this controls if you wana look inisde `assets` or  `assets/data`
 	 */
-	public static function getFileTextContent(id:String, ?dataFolder:Bool = true):String {
+	public static function getFileTextContent(id:String, ?dataFolder:Bool = true):String
+	{
 		var path = getAssetPath('$id');
 		if (dataFolder)
 			path = getDataPath('$id');
 
 		if (DefineManager.enabledDefine('flixelModding') && FlxModding.enabled)
-			return FlxModding.system.getText(path);
+			return FlxModding.system.assetSystem.getText(path);
 		else
 			return lime.utils.Assets.getText(path);
 	}
