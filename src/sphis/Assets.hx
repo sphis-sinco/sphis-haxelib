@@ -2,6 +2,9 @@ package sphis;
 
 import haxe.Json;
 
+import sphis.defines.*;
+import flixel.system.FlxModding;
+
 class Assets {
 	/**
 	 * The common extension for image files
@@ -37,10 +40,10 @@ class Assets {
 	 * @return String The returning path (probably parsed into a valid path)
 	 */
 	public static function getPath(id:String):String {
-		if (sphis.defines.DefineManager.enabledDefine('flixelModding') && flixel.system.FlxModding.enabled) {
+		if (DefineManager.enabledDefine('flixelModding') && FlxModding.enabled) {
 			@:privateAccess {
-				flixel.FlxG.log.notice('getPath($id)');
-				return flixel.system.FlxModding.system.redirect(id);
+				FlxG.log.notice('getPath($id)');
+				return FlxModding.system.redirect(id);
 			}
 		} else
 			return id;
@@ -96,8 +99,8 @@ class Assets {
 		if (imageFolder)
 			path = getImagePath(id);
 
-		if (sphis.defines.DefineManager.enabledDefine('flixelModding') && flixel.system.FlxModding.enabled)
-			return flixel.system.FlxModding.system.getBitmapData(path);
+		if (DefineManager.enabledDefine('flixelModding') && FlxModding.enabled)
+			return FlxModding.system.getBitmapData(path);
 		else
 			return openfl.Assets.getBitmapData(path);
 	}
@@ -114,8 +117,8 @@ class Assets {
 		if (dataFolder)
 			path = getDataPath('$id');
 
-		if (sphis.defines.DefineManager.enabledDefine('flixelModding') && flixel.system.FlxModding.enabled)
-			return flixel.system.FlxModding.system.getText(path);
+		if (DefineManager.enabledDefine('flixelModding') && FlxModding.enabled)
+			return FlxModding.system.getText(path);
 		else
 			return lime.utils.Assets.getText(path);
 	}
