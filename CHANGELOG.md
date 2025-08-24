@@ -1,4 +1,5 @@
-# v.1.2 (8/10/2025)
+# v.1.2 (8/23/2025)
+- `flixel-modding` v1.4.0 is supported and v1.3.0 support has been removed
 
 # v.1.1 (8/10/2025)
 - Added `sphis.grid.CalculateGridPosition` - this assists in calculation of grid positions
