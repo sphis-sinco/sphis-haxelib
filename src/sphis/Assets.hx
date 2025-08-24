@@ -46,7 +46,7 @@ class Assets
 		{
 			@:privateAccess {
 				FlxG.log.notice('getPath($id)');
-				return FlxModding.system.redirect(id);
+				return FlxModding.system.sanitize(id);
 			}
 		}
 		else
@@ -57,12 +57,7 @@ class Assets
 	 * Returns a path in the `assets` folder
 	 */
 	public static function getAssetPath(id:String):String
-		if (DefineManager.enabledDefine('flixelModding') && FlxModding.enabled)
-		{
-			return getPath('$id'); // uh, ok
-		}
-		else
-			return getPath('assets/$id');
+		return getPath('assets/$id');
 
 	/**
 	 * Returns a path in the `assets/data` folder

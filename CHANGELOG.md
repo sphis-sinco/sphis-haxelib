@@ -1,3 +1,6 @@
+# v.1.2.1 (8/24/2025)
+- Turns out I have to use `sanitize` instead of `redirect` with `flixel-modding` 1.4.0.
+
 # v.1.2 (8/23/2025)
 - Added missing `#if sys #end`'s in `sphis.modding.ScriptsManager`
 - Fixed typo in `sphis.modding.ScriptsManager`
