@@ -1,3 +1,5 @@
+# v.1.2 (8/10/2025)
+
 # v.1.1 (8/10/2025)
 - Added `sphis.grid.CalculateGridPosition` - this assists in calculation of grid positions
 - Added `sphis.grid.GridGlobal` - this manages anything and all relating to files in `sphis.grid.`
